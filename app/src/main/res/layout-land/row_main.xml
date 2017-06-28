@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="radhika.yusuf.id.mymovie.ui.main.MainRowVM"/>
+    </data>
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <radhika.yusuf.id.mymovie.utils.LandscapeImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:setImageUrl="@{vm.bImage}"
+            tools:src="@drawable/dummy"/>
+        
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/circle_red"
+            android:text="!"
+            android:textAlignment="center"
+            android:layout_margin="16dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_horizontal|center_vertical"
+            android:visibility="@{!vm.bAdult == true ? View.GONE : View.VISIBLE}"
+            android:textColor="@color/colorWhite"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorDark"
+            android:padding="16dp"
+            android:text="@{vm.bTitle}"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorWhite" />
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{vm.bDesc}"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="16dp"
+            tools:text="@string/long_dumy_text"/>
+    </LinearLayout>
+</LinearLayout>
+</layout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="radhika.yusuf.id.mymovie.ui.main.MainRowVM"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <radhika.yusuf.id.mymovie.utils.MyImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:setImageUrl="@{vm.bImage}"
+            tools:src="@drawable/dummy"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlackLessOpacity"
+            android:layout_alignParentBottom="true"
+            android:padding="16dp"
+            android:textColor="@color/colorWhite"
+            android:text="@{vm.bTitle}"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="@string/dummy_title"/>
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/circle_red"
+            android:text="!"
+            android:textAlignment="center"
+            android:layout_margin="16dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center_horizontal|center_vertical"
+            android:visibility="@{!vm.bAdult == true ? View.GONE : View.VISIBLE}"
+            android:textColor="@color/colorWhite"/>
+    </RelativeLayout>
+</layout>
