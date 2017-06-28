@@ -4,6 +4,8 @@
     <string name="dummy_title">Spider-man</string>
     <string name="sort_dialog_title">Sort</string>
 
+    <string name="adult_warning">!</string>
+
     <string name="negative_button">CANCEL</string>
     <string name="positive_button">SAVE</string>
 
