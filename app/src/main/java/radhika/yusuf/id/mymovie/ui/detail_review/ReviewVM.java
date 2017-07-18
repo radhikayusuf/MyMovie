@@ -33,7 +33,7 @@ public class ReviewVM implements Callback<ReviewResponse> {
     public ObservableField<Boolean> hideRecycler = new ObservableField<>(true);
     public ObservableField<Boolean> showProgress = new ObservableField<>(true);
     public ObservableField<Boolean> showButtonRefresh = new ObservableField<>(false);
-    public ObservableField<Boolean> showNoReview = new ObservableField<>(false);
+    public ObservableField<Boolean> showNoReview = new ObservableField<>(true);
 
     public ReviewVM(Context context, MainData data) {
         req = ApiClient.service().getReviews(String.valueOf(data.getId()), Constant.API_KEY, FIRST_PAGE);
