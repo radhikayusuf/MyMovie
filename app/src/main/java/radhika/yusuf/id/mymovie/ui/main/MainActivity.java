@@ -1,31 +1,19 @@
 package radhika.yusuf.id.mymovie.ui.main;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.database.DataSetObserver;
 import android.databinding.DataBindingUtil;
 import android.os.Parcelable;
-import android.os.PersistableBundle;
-import android.preference.PreferenceManager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import radhika.yusuf.id.mymovie.R;
-import radhika.yusuf.id.mymovie.api.apiDao.MainData;
+import radhika.yusuf.id.mymovie.api.api_dao.MainData;
 import radhika.yusuf.id.mymovie.databinding.ActivityMainBinding;
 import radhika.yusuf.id.mymovie.utils.MyDialog;
 
@@ -43,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        vm = new MainVM(this, savedInstanceState != null, getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE);
+        vm = new MainVM(this, savedInstanceState != null, getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE, getSupportLoaderManager());
         mBinding.refreshLayout.setRefreshing(savedInstanceState == null);
         mBinding.setVm(vm);
         setSupportActionBar(mBinding.toolbar);
@@ -94,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onResume() {
         SharedPreferences sp = getSharedPreferences(getString(R.string.prefences_sort), MODE_PRIVATE);
         sp.registerOnSharedPreferenceChangeListener(this);
+        vm.restartLoader();
         super.onResume();
     }
 

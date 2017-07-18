@@ -6,6 +6,32 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+
+    </style>
+
+    <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:textColor">@color/colorDark</item>
+    </style>
+
+    <style name="ExpandedAppbar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
+    
+    <style name="MyToolbar">
+        <item name="android:textColorSecondary">@color/colorWhite</item>
+    </style>
+
+    <style name="MyCustomTheme" parent="@android:style/Theme.Holo">
+        <item name="android:actionOverflowButtonStyle">@style/MyCustomTheme.OverFlow</item>
+    </style>
+
+    <style name="MyCustomTheme.OverFlow">
+        <item name="android:src">@drawable/ic_more_vert_24dp</item>
     </style>
 
 </resources>

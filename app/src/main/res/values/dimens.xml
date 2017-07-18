@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimens_240dp">240dp</dimen>
+    <dimen name="dimens_16dp">16dp</dimen>
+    <dimen name="dimens_120dp">120dp</dimen>
+    <dimen name="dimens_200dp">200dp</dimen>
+    <dimen name="dimens_24dp">24dp</dimen>
+    <dimen name="dimens_24sp_text">24sp</dimen>
+    <dimen name="dimens_12sp_text">12sp</dimen>
+    <dimen name="dimens_32dp">32dp</dimen>
+    <dimen name="dimens_8dp">8dp</dimen>
+    <dimen name="cpv_bar_width_3dp">3dp</dimen>
+    <dimen name="rim_width_2dp">2dp</dimen>
+    <dimen name="dimens_16sp_text">16sp</dimen>
+    <dimen name="dimens_48dp">48dp</dimen>
+    <dimen name="dimens_160dp">160dp</dimen>
+    <dimen name="app_bar_height">216dp</dimen>
+    <dimen name="separator_height">1dp</dimen>
+    <dimen name="dimens_56dp">56dp</dimen>
+    <dimen name="dimens_18sp_text">18sp</dimen>
+    <dimen name="dimens_80dp">80dp</dimen>
+    <dimen name="zero_dimens">0dp</dimen>
+    <dimen name="dimens_line_height">1dp</dimen>
+</resources>

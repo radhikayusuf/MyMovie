@@ -1,0 +1,78 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="radhika.yusuf.id.mymovie.ui.detail_review.ReviewVM"/>
+    </data>
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="radhika.yusuf.id.mymovie.ui.detail_review.ReviewFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dimens_16dp">
+
+            <TextView
+                android:id="@+id/review_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/reviews_title"
+                android:textStyle="bold"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/review_title"
+                android:layout_marginBottom="@dimen/dimens_160dp"
+                android:layout_marginTop="@dimen/dimens_16dp"
+                android:nestedScrollingEnabled="true"
+                android:visibility="@{vm.hideRecycler ? View.GONE : View.VISIBLE}"
+                app:adapter="@{vm.adapter}"
+                app:layoutManager="@{vm.layoutManager}">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <ProgressBar
+                android:layout_below="@id/review_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dimens_120dp"
+                android:visibility="@{vm.showProgress ? View.VISIBLE : View.GONE}"
+                />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_refresh_24dp"
+                android:padding="@dimen/dimens_8dp"
+                android:visibility="@{vm.showButtonRefresh ? View.VISIBLE : View.GONE}"
+                android:layout_marginTop="@dimen/dimens_32dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/border_orange"
+                android:onClick="@{()->vm.onClickRefresh()}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dimens_56dp"
+                android:visibility="@{vm.showNoReview ? View.GONE : View.VISIBLE}"
+                android:text="@string/no_review_for_this_video"/>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</FrameLayout>
+</layout>

@@ -1,0 +1,49 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="radhika.yusuf.id.mymovie.ui.detail_video.VideoVM" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="radhika.yusuf.id.mymovie.ui.detail_video.VideoFragment">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rc_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{vm.bNullData ? View.GONE : View.VISIBLE}"
+            android:layout_marginBottom="?attr/actionBarSize"
+            app:adapter="@{vm.adapter}"
+            app:layoutManager="@{vm.layoutManager}">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_120dp"
+            android:nestedScrollingEnabled="false"
+            android:visibility="@{vm.bShowProgress ? View.VISIBLE : View.GONE}"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_refresh_24dp"
+            android:padding="@dimen/dimens_8dp"
+            android:visibility="@{vm.bShowButtonRefresh ? View.VISIBLE : View.GONE}"
+            android:layout_marginTop="@dimen/dimens_32dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/border_orange"
+            android:onClick="@{()->vm.onClickRefresh()}"/>
+
+    </FrameLayout>
+
+</layout>

@@ -1,9 +1,7 @@
-package radhika.yusuf.id.mymovie.api.apiDao;
+package radhika.yusuf.id.mymovie.api.api_dao;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.util.List;
 
 /**
  * Created by Radhika Yusuf on 16/06/17.
@@ -11,10 +9,11 @@ import java.util.List;
 
 public class BaseApiDao<T> implements Parcelable {
 
-    private int page, total_results, total_pages;
+    private int id, page, total_results, total_pages;
     private T results;
 
     protected BaseApiDao(Parcel in) {
+        id = in.readInt();
         page = in.readInt();
         total_results = in.readInt();
         total_pages = in.readInt();
@@ -31,6 +30,14 @@ public class BaseApiDao<T> implements Parcelable {
             return new BaseApiDao[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getPage() {
         return page;
@@ -71,6 +78,7 @@ public class BaseApiDao<T> implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeInt(page);
         parcel.writeInt(total_results);
         parcel.writeInt(total_pages);

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="radhika.yusuf.id.mymovie.ui.detail_review.ReviewRowVM"/>
+    </data>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimens_8dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimens_18sp_text"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/dimens_8dp"
+            android:text="@{vm.bAuth}"
+            tools:text="@string/dummy_title"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{vm.bContent}"
+            android:textSize="@dimen/dimens_12sp_text"
+            android:maxLength="150"
+            tools:text="@string/long_dumy_text"/>
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/separator_height"
+        android:layout_marginTop="@dimen/dimens_8dp"
+        android:background="@android:color/darker_gray"/>
+
+</LinearLayout>
+</layout>

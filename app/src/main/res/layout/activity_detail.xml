@@ -19,172 +19,213 @@
         android:background="@color/colorDark"
         tools:context="radhika.yusuf.id.mymovie.ui.detail.DetailActivity">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:background="@drawable/bg_gradient"
-            android:scaleType="centerCrop"
-            android:src="@drawable/dummy"
-            app:setImageUrl="@{vm.imageUrlBackDrop}" />
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="240dp"-->
+            <!--android:background="@drawable/bg_gradient"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/dummy"-->
+            <!--app:setImageUrl="@{vm.imageUrlBackDrop}" />-->
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_gradient" />
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/dimens_240dp"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/bg_gradient" />-->
 
 
-            <android.support.v4.widget.NestedScrollView
-                android:id="@+id/detail_scroll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
-
-                    <View
-                        android:id="@+id/glass"
-                        android:layout_width="match_parent"
-                        android:layout_height="112dp" />
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/glass"
-                        android:layout_marginBottom="16dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <radhika.yusuf.id.mymovie.utils.TopCropImageView
-                                android:id="@+id/image_content"
-                                android:layout_width="match_parent"
-                                android:layout_height="200dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/dummy"
-                                app:setImageUrl="@{vm.imageUrl}" />
-
-                            <TextView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:background="@drawable/circle_red"
-                                android:text="@string/adult_warning"
-                                android:textAlignment="center"
-                                android:layout_margin="16dp"
-                                android:gravity="center_horizontal|center_vertical"
-                                android:visibility="@{!vm.bAdult == true ? View.GONE : View.VISIBLE}"
-                                android:textColor="@color/colorWhite"/>
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_close_black_24dp"
-                                android:layout_margin="16dp"
-                                android:layout_alignParentRight="true"
-                                android:onClick="@{(v)->vm.closeDetail(v)}"/>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="16dp"
-                                android:background="@color/colorWhite"
-                                android:layout_below="@id/image_content"
-                                >
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="24dp"
-                                    android:text="@{vm.bTitle}"
-                                    android:textAlignment="center"
-                                    android:textSize="24sp"
-                                    tools:text="@string/dummy_title"
-                                    android:textStyle="bold" />
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
 
 
-                                <RelativeLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="16dp"
-                                    android:layout_gravity="center_horizontal">
 
-                                    <TextView
-                                        android:id="@+id/user_score"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textSize="12sp"
-                                        android:text="@string/user_score"/>
+            <!--<android.support.v4.widget.NestedScrollView-->
+                <!--android:id="@+id/detail_scroll"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                                    <at.grabner.circleprogress.CircleProgressView
-                                        android:layout_width="32dp"
-                                        android:layout_height="32dp"
-                                        android:layout_marginTop="8dp"
-                                        android:layout_centerHorizontal="true"
-                                        android:layout_centerVertical="true"
-                                        app:cpv_barWidth="3dp"
-                                        app:cpv_value="80"
-                                        app:cpv_textColor="@android:color/transparent"
-                                        app:cpv_rimWidth="2dp"
-                                        android:layout_below="@id/user_score"
-                                        app:cpv_barColor="@color/colorPrimary"
-                                        app:setProgres="@{vm.bVote}" />
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="@dimen/dimens_16dp">-->
 
-                                    <TextView
-                                        android:layout_width="32dp"
-                                        android:layout_height="32dp"
-                                        android:layout_gravity="center_horizontal"
-                                        android:gravity="center_vertical|center_horizontal"
-                                        android:layout_centerVertical="true"
-                                        android:layout_centerHorizontal="true"
-                                        android:text="@{vm.bVote}"
-                                        android:textSize="12sp"
-                                        android:layout_marginTop="8dp"
-                                        android:layout_below="@id/user_score"
-                                        tools:text="7.6"/>
+                    <!--<ImageButton-->
+                        <!--android:layout_width="32dp"-->
+                        <!--android:layout_height="32dp"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_margin="16dp"-->
+                        <!--android:background="@drawable/circle_white"-->
+                        <!--android:src="@drawable/ic_star_border_24dp" />-->
 
-                                </RelativeLayout>
+                    <!--<View-->
+                        <!--android:id="@+id/glass"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="@dimen/dimens_120dp" />-->
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="16dp"
-                                    android:textStyle="bold"
-                                    android:text="@{vm.bReleaseDate}" />
+                    <!--<android.support.v7.widget.CardView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_below="@id/glass"-->
+                        <!--android:layout_marginBottom="@dimen/dimens_16dp">-->
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:text="@{vm.bDesc}" />
+                        <!--<RelativeLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:orientation="vertical">-->
 
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </android.support.v7.widget.CardView>
-                </RelativeLayout>
-            </android.support.v4.widget.NestedScrollView>
-        </RelativeLayout>
+                            <!--<radhika.yusuf.id.mymovie.utils.TopCropImageView-->
+                                <!--android:id="@+id/image_content"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="@dimen/dimens_200dp"-->
+                                <!--android:scaleType="centerCrop"-->
+                                <!--android:src="@drawable/dummy"-->
+                                <!--app:setImageUrl="@{vm.imageUrl}" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="@dimen/dimens_24dp"-->
+                                <!--android:layout_height="@dimen/dimens_24dp"-->
+                                <!--android:background="@drawable/circle_red"-->
+                                <!--android:text="@string/adult_warning"-->
+                                <!--android:textAlignment="center"-->
+                                <!--android:layout_margin="16dp"-->
+                                <!--android:gravity="center_horizontal|center_vertical"-->
+                                <!--android:visibility="@{!vm.bAdult == true ? View.GONE : View.VISIBLE}"-->
+                                <!--android:textColor="@color/colorWhite"/>-->
+
+                            <!--<ImageView-->
+                                <!--android:layout_width="24dp"-->
+                                <!--android:layout_height="24dp"-->
+                                <!--android:src="@drawable/ic_close_black_24dp"-->
+                                <!--android:layout_margin="16dp"-->
+                                <!--android:layout_alignParentRight="true"-->
+                                <!--android:onClick="@{(v)->vm.closeDetail(v)}"/>-->
+
+                            <!--<LinearLayout-->
+                                <!--android:id="@+id/detail_content"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:orientation="vertical"-->
+                                <!--android:padding="@dimen/dimens_16dp"-->
+                                <!--android:background="@color/colorWhite"-->
+                                <!--android:layout_below="@id/image_content"-->
+                                <!--&gt;-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginTop="@dimen/dimens_24dp"-->
+                                    <!--android:text="@{vm.bTitle}"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="@dimen/dimens_24sp_text"-->
+                                    <!--tools:text="@string/dummy_title"-->
+                                    <!--android:textStyle="bold" />-->
 
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            app:layout_collapseMode="parallax"
-            app:layout_scrollFlags="scroll"
-            android:visibility="gone">
+                                <!--<RelativeLayout-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginTop="@dimen/dimens_16dp"-->
+                                    <!--android:layout_gravity="center_horizontal">-->
 
-        </android.support.v7.widget.Toolbar>
+                                    <!--<TextView-->
+                                        <!--android:id="@+id/user_score"-->
+                                        <!--android:layout_width="wrap_content"-->
+                                        <!--android:layout_height="wrap_content"-->
+                                        <!--android:textSize="@dimen/dimens_12sp_text"-->
+                                        <!--android:text="@string/user_score"/>-->
+
+                                    <!--<at.grabner.circleprogress.CircleProgressView-->
+                                        <!--android:layout_width="@dimen/dimens_32dp"-->
+                                        <!--android:layout_height="@dimen/dimens_32dp"-->
+                                        <!--android:layout_marginTop="@dimen/dimens_8dp"-->
+                                        <!--android:layout_centerHorizontal="true"-->
+                                        <!--android:layout_centerVertical="true"-->
+                                        <!--android:layout_below="@id/user_score"-->
+                                        <!--app:cpv_barWidth="@dimen/cpv_bar_width_3dp"-->
+                                        <!--app:cpv_value="80"-->
+                                        <!--app:cpv_textColor="@android:color/transparent"-->
+                                        <!--app:cpv_rimWidth="@dimen/rim_width_2dp"-->
+                                        <!--app:cpv_barColor="@color/colorPrimary"-->
+                                        <!--app:setProgres="@{vm.bVote}" />-->
+
+                                    <!--<TextView-->
+                                        <!--android:layout_width="@dimen/dimens_32dp"-->
+                                        <!--android:layout_height="@dimen/dimens_32dp"-->
+                                        <!--android:layout_gravity="center_horizontal"-->
+                                        <!--android:gravity="center_vertical|center_horizontal"-->
+                                        <!--android:layout_centerVertical="true"-->
+                                        <!--android:layout_centerHorizontal="true"-->
+                                        <!--android:text="@{vm.bVote}"-->
+                                        <!--android:textSize="12sp"-->
+                                        <!--android:layout_marginTop="@dimen/dimens_8dp"-->
+                                        <!--android:layout_below="@id/user_score"-->
+                                        <!--tools:text="7.6"/>-->
+
+                                <!--</RelativeLayout>-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginTop="@dimen/dimens_16dp"-->
+                                    <!--android:textStyle="bold"-->
+                                    <!--android:text="@{vm.bReleaseDate}" />-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginTop="@dimen/dimens_8dp"-->
+                                    <!--android:text="@{vm.bDesc}" />-->
+
+                            <!--</LinearLayout>-->
+
+
+                            <!--<com.google.android.youtube.player.YouTubePlayerView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="240dp"-->
+                                <!--android:layout_below="@id/detail_content">-->
+
+                            <!--</com.google.android.youtube.player.YouTubePlayerView>-->
+
+                            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:id="@+id/detail_user_review"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_below="@id/detail_content"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:text="@string/user_reviews"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_margin="@dimen/dimens_16dp"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:padding="@dimen/dimens_8dp"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:textStyle="bold"/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<android.support.v7.widget.RecyclerView&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_below="@id/detail_user_review"&ndash;&gt;-->
+                                <!--&lt;!&ndash;tools:listitem="@layout/row_review">&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</android.support.v7.widget.RecyclerView>&ndash;&gt;-->
+                        <!--</RelativeLayout>-->
+
+
+                    <!--</android.support.v7.widget.CardView>-->
+                <!--</RelativeLayout>-->
+            <!--</android.support.v4.widget.NestedScrollView>-->
+
+        <!--</RelativeLayout>-->
+
+
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:background="@android:color/transparent"-->
+            <!--app:layout_collapseMode="parallax"-->
+            <!--app:layout_scrollFlags="scroll"-->
+            <!--android:visibility="gone">-->
+
+        <!--</android.support.v7.widget.Toolbar>-->
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

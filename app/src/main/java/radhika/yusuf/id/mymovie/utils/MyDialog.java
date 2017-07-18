@@ -23,6 +23,7 @@ public class MyDialog {
         final DialogListAdapter adapter = new DialogListAdapter(context, android.R.layout.select_dialog_singlechoice);
         adapter.add(context.getString(R.string.populart_sort));
         adapter.add(context.getString(R.string.top_rated_sort));
+        adapter.add(context.getString(R.string.favorite_sort));
 
 
         builder.setSingleChoiceItems(adapter, getIndexSort(MyPrefences.getStateSort(context), adapter), new DialogInterface.OnClickListener() {

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="radhika.yusuf.id.mymovie.ui.detail.DetailVM" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="@color/colorPrimary"
+                app:expandedTitleMargin="@dimen/dimens_16dp"
+                app:expandedTitleMarginBottom="@dimen/dimens_24dp"
+                app:collapsedTitleTextAppearance="@style/CollapsedAppBar"
+                app:expandedTitleTextAppearance="@style/ExpandedAppbar"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <ImageView
+                    android:id="@+id/image_backdrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/app_bar_height"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/dummy"
+                    app:setBackdrop="@{vm.imageUrlBackDrop}"/>
+
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:nestedScrollingEnabled="true"
+                    app:layout_collapseMode="pin"
+
+                    />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <RelativeLayout
+                android:id="@+id/pack_youtube"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimens_200dp"
+                android:visibility="gone">
+                <fragment
+                    android:id="@+id/youtube_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment" />
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/frame_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhiteSmoke">
+
+                <fragment
+                    android:id="@+id/fragment_info"
+                    android:name="radhika.yusuf.id.mymovie.ui.detail_info.InfoFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <fragment
+                    android:id="@+id/fragment_review"
+                    android:name="radhika.yusuf.id.mymovie.ui.detail_review.ReviewFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <fragment
+                    android:id="@+id/fragment_video"
+                    android:name="radhika.yusuf.id.mymovie.ui.detail_video.VideoFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/navigation"
+            />
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

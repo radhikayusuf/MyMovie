@@ -1,4 +1,4 @@
-package radhika.yusuf.id.mymovie.api.apiDao;
+package radhika.yusuf.id.mymovie.api.api_dao;
 
 import android.os.Parcel;
 

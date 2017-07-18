@@ -1,15 +1,17 @@
 package radhika.yusuf.id.mymovie.ui.main;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,11 +19,11 @@ import java.util.List;
 
 import radhika.yusuf.id.mymovie.R;
 import radhika.yusuf.id.mymovie.api.ApiClient;
-import radhika.yusuf.id.mymovie.api.apiDao.MainData;
-import radhika.yusuf.id.mymovie.api.apiDao.MainResponse;
+import radhika.yusuf.id.mymovie.api.api_dao.MainData;
+import radhika.yusuf.id.mymovie.api.api_dao.MainResponse;
+import radhika.yusuf.id.mymovie.data.MovieContract;
 import radhika.yusuf.id.mymovie.ui.detail.DetailActivity;
 import radhika.yusuf.id.mymovie.utils.Constant;
-import radhika.yusuf.id.mymovie.utils.MyDialog;
 import radhika.yusuf.id.mymovie.utils.MyPrefences;
 import radhika.yusuf.id.mymovie.utils.RecyclerViewClickItem;
 import retrofit2.Call;
@@ -33,27 +35,34 @@ import retrofit2.Response;
  */
 
 public class MainVM implements Callback<MainResponse>,
-        RecyclerViewClickItem {
+        RecyclerViewClickItem, LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static final int FIRST_PAGE = 1;
+
+    private final int MOVIE_LOADER_ID = 0;
+    private LoaderManager mSupportLoader;
     private Context mContext;
     private List<MainData> mData;
+    private List<Integer> mDataFavorite;
     private Call<MainResponse> req;
     private MainVMInterface callback;
     private boolean isLastPage = false;
     private boolean isLoading = false;
-
-    private static final int FIRST_PAGE = 1;
+    private int PAGE_SIZE = 20;
+    private int helper = 0;
+    private String TAG = MainVM.class.getName();
 
     public RecyclerView.LayoutManager layoutManager;
     public MainAdapter adapter;
     public RecyclerView.OnScrollListener scrollListener;
     public ObservableField<Boolean> bEmptyRecycler = new ObservableField<>(false);
     public ObservableField<Boolean> statusReq = new ObservableField<>(true);
-    private int PAGE_SIZE = 20;
-    private int helper = 0;
 
 
-    public MainVM(Context context, boolean savedData, boolean landScape) {
+    public MainVM(Context context, boolean savedData, boolean landScape, LoaderManager supportLoaderManager) {
         this.mContext = context;
+        mSupportLoader = supportLoaderManager;
+        mSupportLoader.initLoader(MOVIE_LOADER_ID, null, this);
         if (landScape) {
             layoutManager = new LinearLayoutManager(mContext);
         } else {
@@ -67,8 +76,21 @@ public class MainVM implements Callback<MainResponse>,
         }
 
         mData = new ArrayList<>();
-        adapter = new MainAdapter(mData, this);
+        mDataFavorite = new ArrayList<>();
+        adapter = new MainAdapter(mData, mDataFavorite, this, mContext);
         callback = (MainVMInterface) context;
+        initScrollEvent();
+
+        // if data empty
+        if (!savedData) {
+            bEmptyRecycler.set(true);
+            req = ApiClient.service().getMovie(sortToQuery(MyPrefences.getStateSort(mContext)), Constant.API_KEY, FIRST_PAGE);
+            req.enqueue(this);
+        }
+
+    }
+
+    private void initScrollEvent() {
         scrollListener = new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -115,15 +137,9 @@ public class MainVM implements Callback<MainResponse>,
                 }
             }
         };
-
-        if (!savedData) {
-            bEmptyRecycler.set(true);
-            req = ApiClient.service().getMovie(sortToQuery(MyPrefences.getStateSort(mContext)), Constant.API_KEY, FIRST_PAGE);
-            req.enqueue(this);
-        }
-
     }
 
+    //for pagination
     private void paginate() {
         int page = (mData.size() / PAGE_SIZE) + FIRST_PAGE;
         req = ApiClient.service().getMovie(sortToQuery(MyPrefences.getStateSort(mContext)), Constant.API_KEY, page);
@@ -151,11 +167,27 @@ public class MainVM implements Callback<MainResponse>,
         });
     }
 
+
     public void sort(String item) {
-        req = ApiClient.service().getMovie(sortToQuery(item.toLowerCase()), Constant.API_KEY, FIRST_PAGE);
-        req.clone().enqueue(this);
+        if(!item.equalsIgnoreCase(mContext.getString(R.string.favorite_sort))){
+            initScrollEvent();
+            req = ApiClient.service().getMovie(sortToQuery(item.toLowerCase()), Constant.API_KEY, FIRST_PAGE);
+            req.clone().enqueue(this);
+        }else{
+            scrollListener = null;
+            restartLoader();
+            adapter.notifyDataSetChanged();
+            callback.onDoneLoad();
+            bEmptyRecycler.set(false);
+            statusReq.set(true);
+        }
     }
 
+    public void restartLoader() {
+        mSupportLoader.restartLoader(MOVIE_LOADER_ID, null, this);
+    }
+
+    //swipe refresh
     public void refreshThis() {
         req = ApiClient.service().getMovie(sortToQuery(MyPrefences.getStateSort(mContext)), Constant.API_KEY, FIRST_PAGE);
         req.clone().enqueue(this);
@@ -167,7 +199,6 @@ public class MainVM implements Callback<MainResponse>,
 
     public void setData(List<MainData> mData) {
         this.mData.addAll(mData);
-        Log.wtf("setData: ", String.valueOf(this.mData.size()));
         adapter.notifyDataSetChanged();
     }
 
@@ -197,8 +228,67 @@ public class MainVM implements Callback<MainResponse>,
     }
 
     @Override
-    public void onClickItem(int position) {
-        DetailActivity.startThisActivity(mContext, mData.get(position));
+    public void onClickItem(MainData mainData, boolean isFavorite) {
+        DetailActivity.startThisActivity(mContext, mainData, isFavorite);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new AsyncTaskLoader<Cursor>(mContext) {
+            Cursor mMovieData = null;
+
+            @Override
+            protected void onStartLoading() {
+                if(mMovieData != null){
+                    deliverResult(mMovieData);
+                } else {
+                    forceLoad();
+                }
+            }
+
+            @Override
+            public Cursor loadInBackground() {
+                try {
+                    return mContext.getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI,
+                            null,
+                            null,
+                            null,
+                            MovieContract.MovieEntry._ID);
+
+                } catch (Exception e) {
+                    Log.e(TAG, "Failed to asynchronously load data.\n"+ e.getMessage());
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+
+            public void deliverResult(Cursor data) {
+                mMovieData = data;
+                super.deliverResult(data);
+            }
+
+        };
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        adapter.swapCursor(data);
+
+        int indexIds = data.getColumnIndex(MovieContract.MovieEntry.COLUMN_FAVORITE_IDS);
+
+        mDataFavorite.clear();
+        for (int i = 0; i < data.getCount(); i++) {
+            data.moveToPosition(i);
+            mDataFavorite.add(data.getInt(indexIds));
+        }
+
+        adapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        adapter.swapCursor(null);
     }
 
 

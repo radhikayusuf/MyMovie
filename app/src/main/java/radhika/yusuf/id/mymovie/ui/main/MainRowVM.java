@@ -3,7 +3,7 @@ package radhika.yusuf.id.mymovie.ui.main;
 import android.content.Context;
 import android.databinding.ObservableField;
 
-import radhika.yusuf.id.mymovie.api.apiDao.MainData;
+import radhika.yusuf.id.mymovie.api.api_dao.MainData;
 
 /**
  * Created by Radhika Yusuf on 16/06/17.
@@ -17,8 +17,9 @@ public class MainRowVM {
     public ObservableField<String> bDesc = new ObservableField<>("");
     public ObservableField<String> bImage = new ObservableField<>("");
     public ObservableField<Boolean> bAdult = new ObservableField<>(false);
+    public ObservableField<Boolean> bFav = new ObservableField<>(false);
 
-    public MainRowVM(Context mContext, MainData mainData) {
+    public MainRowVM(Context mContext, MainData mainData, boolean favorite) {
         this.mContext = mContext;
         this.mData = mainData;
 
@@ -26,5 +27,7 @@ public class MainRowVM {
         bDesc.set(mData.getOverview());
         bImage.set(mData.getPoster_path());
         bAdult.set(mData.isAdult());
+        bFav.set(favorite);
     }
+
 }

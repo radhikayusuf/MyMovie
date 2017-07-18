@@ -1,4 +1,4 @@
-package radhika.yusuf.id.mymovie.api.apiDao;
+package radhika.yusuf.id.mymovie.api.api_dao;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -24,6 +24,23 @@ public class MainData implements Parcelable{
         private boolean adult;
         private String overview;
         private String release_date;
+
+    public MainData(int vote_count, int id, boolean video, double vote_average, String title, double popularity, String poster_path, String original_language, String original_title, List<Integer> genre_ids, String backdrop_path, boolean adult, String overview, String release_date) {
+        this.vote_count = vote_count;
+        this.id = id;
+        this.video = video;
+        this.vote_average = vote_average;
+        this.title = title;
+        this.popularity = popularity;
+        this.poster_path = poster_path;
+        this.original_language = original_language;
+        this.original_title = original_title;
+        this.genre_ids = genre_ids;
+        this.backdrop_path = backdrop_path;
+        this.adult = adult;
+        this.overview = overview;
+        this.release_date = release_date;
+    }
 
     protected MainData(Parcel in) {
         vote_count = in.readInt();

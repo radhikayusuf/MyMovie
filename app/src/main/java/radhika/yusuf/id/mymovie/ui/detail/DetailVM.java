@@ -1,11 +1,18 @@
 package radhika.yusuf.id.mymovie.ui.detail;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.databinding.ObservableField;
+import android.net.Uri;
 import android.view.View;
+import android.widget.Toast;
 
-import radhika.yusuf.id.mymovie.api.apiDao.MainData;
+import java.util.List;
+
+import radhika.yusuf.id.mymovie.R;
+import radhika.yusuf.id.mymovie.api.api_dao.MainData;
+import radhika.yusuf.id.mymovie.data.MovieContract;
 
 /**
  * Created by Radhika Yusuf on 16/06/17.
@@ -14,29 +21,16 @@ import radhika.yusuf.id.mymovie.api.apiDao.MainData;
 public class DetailVM {
 
     private Context mContext;
+    private MainData mData;
 
-    public ObservableField<String> bTitle = new ObservableField<>();
-    public ObservableField<String> bDesc = new ObservableField<>();
-    public ObservableField<String> bReleaseDate = new ObservableField<>();
-    public ObservableField<String> bVote = new ObservableField<>();
-    public ObservableField<Boolean> bAdult = new ObservableField<>();
-    public ObservableField<String> imageUrl = new ObservableField<>();
+
     public ObservableField<String> imageUrlBackDrop = new ObservableField<>();
 
-    public DetailVM(Context mContext, MainData data) {
+    public DetailVM(Context mContext, MainData data, boolean favorite) {
         this.mContext = mContext;
-        this.bTitle.set(data.getTitle());
-        this.bDesc.set(data.getOverview());
-        this.bAdult.set(data.isAdult());
-        this.bVote.set(String.valueOf(data.getVote_average()));
-        this.bReleaseDate.set("Release date : "+data.getRelease_date());
-        this.imageUrl.set(data.getPoster_path());
+        this.mData = data;
+
         this.imageUrlBackDrop.set(data.getBackdrop_path());
-    }
-
-
-    public void closeDetail(View v){
-        ((Activity)mContext).finish();
     }
 
 

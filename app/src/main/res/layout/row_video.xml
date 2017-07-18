@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="radhika.yusuf.id.mymovie.ui.detail_video.VideoRowVM"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimens_16dp">
+            <TextView
+                android:id="@+id/title_video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textStyle="bold"
+                android:paddingRight="@dimen/dimens_32dp"
+                android:textSize="@dimen/dimens_18sp_text"
+                android:text="@{vm.bTitle}"
+                tools:text="@string/dummy_title"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_video"
+                android:layout_marginTop="@dimen/dimens_8dp"
+                android:text="@{vm.bType}"
+                tools:text="@string/type_trailer"/>
+
+            <ImageButton
+                android:id="@+id/image_play_video"
+                android:layout_width="@dimen/dimens_48dp"
+                android:layout_height="@dimen/dimens_48dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/border_orange"
+                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTintMode="screen"
+                android:src="@drawable/ic_play_arrow_24dp"
+                android:visibility="@{vm.bSelected ? View.GONE : View.VISIBLE}"/>
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_line_height"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@id/image_play_video"/>
+    </LinearLayout>
+</layout>
