@@ -23,7 +23,7 @@ public class LandscapeImageView extends android.support.v7.widget.AppCompatImage
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        setMeasuredDimension(width, width);
+        int width = (MeasureSpec.getSize(widthMeasureSpec));
+        setMeasuredDimension(width/3, width/2);
     }
 }

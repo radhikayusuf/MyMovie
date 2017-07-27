@@ -59,21 +59,18 @@ public class MainVM implements Callback<MainResponse>,
     public ObservableField<Boolean> statusReq = new ObservableField<>(true);
 
 
-    public MainVM(Context context, boolean savedData, boolean landScape, LoaderManager supportLoaderManager) {
+    public MainVM(Context context, boolean savedData, final boolean landScape, LoaderManager supportLoaderManager) {
         this.mContext = context;
         mSupportLoader = supportLoaderManager;
         mSupportLoader.initLoader(MOVIE_LOADER_ID, null, this);
-        if (landScape) {
-            layoutManager = new LinearLayoutManager(mContext);
-        } else {
-            layoutManager = new GridLayoutManager(mContext, 2);
-            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    return position == mData.size() ? 2 : 1;
-                }
-            });
-        }
+
+        layoutManager = new GridLayoutManager(mContext, 2);
+        ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return position == mData.size() ? 2 : 1;
+            }
+        });
 
         mData = new ArrayList<>();
         mDataFavorite = new ArrayList<>();
@@ -209,13 +206,15 @@ public class MainVM implements Callback<MainResponse>,
     @Override
     public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
         mData.clear();
-        for (MainData mainData : response.body().getResults()) {
-            mData.add(mainData);
+        if(response.isSuccessful() && response.code() == 200){
+            for (MainData mainData : response.body().getResults()) {
+                mData.add(mainData);
+            }
+            adapter.notifyDataSetChanged();
+            bEmptyRecycler.set(false);
+            callback.onDoneLoad();
+            statusReq.set(true);
         }
-        adapter.notifyDataSetChanged();
-        bEmptyRecycler.set(false);
-        callback.onDoneLoad();
-        statusReq.set(true);
 
     }
 
